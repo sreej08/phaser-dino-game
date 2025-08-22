@@ -49,18 +49,19 @@ export class Game extends Scene {
         // enable collision between player and wall
         this.physics.add.collider(this.player, this.groundCollider);
         this.obstacles = this.physics.add.group({
-            allowGravity: false
+            allowGravity: false // No gravity for cactuses
         });
         this.timer = 0;
     }
 
     update(time, delta) {
         this.ground.tilePositionX += this.gameSpeed;
+        // create cactus obstacle using timer
         this.timer += delta;
         console.log(this.timer);
         if (this.timer > 1000) {
             this.obstacleNum = Math.floor(Math.random() * 6) + 1;
-            this.obstacles.create(500, 220, `obstacle-${this.obstacleNum}`).setOrigin(0);
+            this.obstacles.create(750, 220, `obstacle-${this.obstacleNum}`).setOrigin(0);
             this.timer -= 1000;
         }
         Phaser.Actions.IncX(this.obstacles.getChildren(), -this.gameSpeed);
